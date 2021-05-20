@@ -30,7 +30,8 @@ if [ -z ${AUTO_UPDATE} ] || [ "${AUTO_UPDATE}" == 1 ]; then
         echo "${LATEST_VER}" > version.txt
         DOWNLOAD_LINK=$(echo ${LATEST_JSON} | jq .assets | jq -r .[].browser_download_url | grep -i ${MATCH})
         wget -N $DOWNLOAD_LINK
-        unzip -o $MATCH
+        #unzip -o $MATCH
+        tar -zxvf $MATCH
         rm -fR $MATCH
     fi
 
