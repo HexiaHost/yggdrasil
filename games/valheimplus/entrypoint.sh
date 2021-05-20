@@ -39,6 +39,7 @@ else
     echo -e "Not updating game server as auto update was set to 0. Starting server"
 fi
 
+
 # Replace Startup Variables
 MODIFIED_STARTUP=$(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')
 echo -e ":/home/container$ ${MODIFIED_STARTUP}"
