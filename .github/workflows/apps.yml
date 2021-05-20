@@ -10,7 +10,7 @@ on:
       - apps/**
 jobs:
   push:
-    name: "games:${{ matrix.game }}"
+    name: "apps:${{ matrix.app }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
