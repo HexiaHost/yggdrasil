@@ -5,8 +5,6 @@ sleep 1
 # Make internal Docker IP address available to processes.
 export INTERNAL_IP=`ip route get 1 | awk '{print $NF;exit}'`
 
-LOGDIR="/home/container/.config/openmw"
-
 if [ "${LOG_AUTOPRUNE}" = 1 ]; then
     if [ -d "$LOG_DIR" ]; then
         echo "AutoPruning logs older than 7 days..."
