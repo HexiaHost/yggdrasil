@@ -17,6 +17,7 @@ jobs:
       matrix:
         app:
           - go-opus
+          - mono
     steps:
       - name: code checkout
         uses: actions/checkout@v2
