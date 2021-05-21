@@ -2,6 +2,9 @@ FROM mono:6
 
 LABEL author="HexiaHost LLC." maintainer="support@hexiahost.net"
 
+LABEL org.opencontainers.image.source="https://github.com/HexiaHost/yggdrasil"
+LABEL org.opencontainers.image.licenses=MIT
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt update \

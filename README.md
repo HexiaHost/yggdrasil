@@ -9,4 +9,4 @@ is used when determining which space an image will live under:
 or type of game.
 * `apps` - generic images used to run programs. Some of these programs may include bots coded in compiled languages or even game servers.
 
-All of these images are available for `linux/amd64` version(s). Currently looking into creating them for `linux/arm64`...
+All of these images are available for `linux/amd64` version(s).

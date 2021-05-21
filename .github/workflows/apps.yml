@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         app:
-          - go-opus
+          - opus
           - mono-6
     steps:
       - name: code checkout
