@@ -1,4 +1,4 @@
-FROM mono:6-slim
+FROM mono:latest
 
 LABEL author="HexiaHost LLC." maintainer="support@hexiahost.net"
 
