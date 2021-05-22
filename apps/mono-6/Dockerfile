@@ -1,4 +1,4 @@
-FROM mono:6
+FROM mono:6-slim
 
 LABEL author="HexiaHost LLC." maintainer="support@hexiahost.net"
 
@@ -8,8 +8,8 @@ LABEL org.opencontainers.image.licenses=MIT
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt update \
-    && apt upgrade -y \
-    && apt install -y iproute2 ca-certificates unzip sqlite fontconfig
+    && apt install -y iproute2 ca-certificates unzip sqlite \
+    && useradd -d /home/container -m container
 
 USER container
 ENV HOME /home/container

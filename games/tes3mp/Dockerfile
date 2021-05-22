@@ -8,7 +8,8 @@ LABEL org.opencontainers.image.licenses=MIT
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update -y \
-    && apt-get install -y curl libgl1-mesa-glx libluajit-5.1-2 libssl1.1
+    && apt-get install -y curl libgl1-mesa-glx libluajit-5.1-2 libssl1.1 \
+    && useradd -d /home/container -m container
 
 USER container
 ENV HOME /home/container

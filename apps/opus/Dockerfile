@@ -8,7 +8,8 @@ LABEL org.opencontainers.image.licenses=MIT
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update -y \
-    && apt-get install -y curl ca-certificates openssl git libopus-dev opus-tools
+    && apt-get install -y curl ca-certificates openssl git libopus-dev opus-tools \
+    && useradd -d /home/container -m container
 
 USER container
 ENV HOME /home/container
