@@ -8,6 +8,7 @@ LABEL org.opencontainers.image.licenses=MIT
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt update \
+    && apt upgrade -y \
     && apt install -y iproute2 ca-certificates unzip sqlite fontconfig
 
 USER container
