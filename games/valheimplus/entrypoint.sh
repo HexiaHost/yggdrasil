@@ -15,7 +15,7 @@ fi
 ## if auto_update is not set or to true update
 if [ -z ${AUTO_UPDATE} ] || [ "${AUTO_UPDATE}" == 1 ]; then
     # Update Source Server
-    ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update 896660 validate +quit
+    ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update 896660 +quit
 
     # Update if version.txt is missing or blank.
     if [[ ! -f "version.txt" ]] || [[ -z ${CURRENT_VER} ]] || [[ ${VERSION} == "latest" ]] && [[ ${CURRENT_VER} != ${LATEST_VER} ]]; then
