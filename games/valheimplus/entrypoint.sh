@@ -15,6 +15,7 @@ fi
 ## if auto_update is not set or to true update
 if [ -z ${AUTO_UPDATE} ] || [ "${AUTO_UPDATE}" == 1 ]; then
     # Update Source Server
+    chmod u+x steamcmd/steamcmd.sh
     ./steamcmd/steamcmd.sh +login anonymous +force_install_dir /home/container +app_update 896660 +quit
 
     # Update if version.txt is missing or blank.
@@ -24,6 +25,7 @@ if [ -z ${AUTO_UPDATE} ] || [ "${AUTO_UPDATE}" == 1 ]; then
         wget -N $DOWNLOAD_LINK
         unzip -o $MATCH
         rm -fR $MATCH
+        chmod u+x valheim_server.x86_64
     fi
 
     echo -e "Finished update check."
