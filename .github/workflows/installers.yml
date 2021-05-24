@@ -1,0 +1,45 @@
+name: build installers
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  push:
+    branches:
+      - master
+    paths:
+      - installers/**
+jobs:
+  push:
+    name: "installers:${{ matrix.installer }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        installer:
+          - steamcmd
+    steps:
+      - name: code checkout
+        uses: actions/checkout@v2
+
+      - name: setup buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: "v0.5.1"
+          buildkitd-flags: --debug
+
+      - name: login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: ./installers/${{ matrix.installer }}
+          file: ./installers/${{ matrix.installer }}/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/hexiahost/installers:${{ matrix.installer }}
