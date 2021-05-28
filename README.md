@@ -10,4 +10,4 @@ or type of game.
 * `apps` - generic images used to run programs. Some of these programs may include bots coded in compiled languages or even game servers.
 * `installers` - these images are used to install different Eggs within Pterodactyl, they're not used for running any servers in Pterodactyl.
 
-All of these images are available for `linux/amd64` version(s).
+All of these images are available for `linux/amd64` and `linux/arm64` version(s).
