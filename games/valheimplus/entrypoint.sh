@@ -12,7 +12,7 @@ if [ -f "version.txt" ]; then
     read -r CURRENT_VER < version.txt
 fi
 
-## if auto_update is not set or to true update
+# if auto_update is not set or to true update
 if [ -z ${AUTO_UPDATE} ] || [ "${AUTO_UPDATE}" == 1 ]; then
     # Update Source Server
     chmod u+x steamcmd/steamcmd.sh
