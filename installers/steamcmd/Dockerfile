@@ -10,7 +10,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN mkdir -p /root/steamcmd
 WORKDIR /root/steamcmd
 
-
 RUN dpkg --add-architecture i386 \
     && apt-get update -y \
     && apt-get install -y --no-install-recommends --no-install-suggests ca-certificates curl lib32gcc1 libsdl2-2.0-0:i386 \
