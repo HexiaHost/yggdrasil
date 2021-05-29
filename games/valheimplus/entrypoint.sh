@@ -5,6 +5,7 @@ sleep 1
 # Make internal Docker IP address available to processes.
 export INTERNAL_IP=`ip route get 1 | awk '{print $NF;exit}'`
 
+# Version variables.
 LATEST_JSON=$(curl --silent "https://api.github.com/repos/${GITHUB_PACKAGE}/releases/latest")
 RELEASES=$(curl --silent "https://api.github.com/repos/${GITHUB_PACKAGE}/releases")
 LATEST_VER=$(echo ${LATEST_JSON} | jq -r '.tag_name')
@@ -12,7 +13,7 @@ if [ -f "version.txt" ]; then
     read -r CURRENT_VER < version.txt
 fi
 
-## if auto_update is not set or to true update
+# If auto update is not set or set to true then update
 if [ -z ${AUTO_UPDATE} ] || [ "${AUTO_UPDATE}" == 1 ]; then
     # Update Source Server
     chmod u+x steamcmd/steamcmd.sh

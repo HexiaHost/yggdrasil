@@ -10,14 +10,14 @@ on:
       - games/**
 jobs:
   push:
-    name: "games:${{ matrix.game }}"
+    name: "games:${{ matrix.game.name }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         game:
-          - tes3mp
-          - valheimplus
+          - {name: "tes3mp", platform: "linux/amd64,linux/arm64"}
+          - {name: "valheimplus", platform: "linux/amd64,linux/arm64"}
     steps:
       - name: code checkout
         uses: actions/checkout@v2
@@ -41,9 +41,9 @@ jobs:
       - name: build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./games/${{ matrix.game }}
-          file: ./games/${{ matrix.game }}/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          context: ./games/${{ matrix.game.name }}
+          file: ./games/${{ matrix.game.name }}/Dockerfile
+          platforms: ${{ matrix.game.platform }}
           push: true
           tags: |
-            ghcr.io/hexiahost/games:${{ matrix.game }}
+            ghcr.io/hexiahost/games:${{ matrix.game.name }}
