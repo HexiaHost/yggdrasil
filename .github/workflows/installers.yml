@@ -10,13 +10,13 @@ on:
       - installers/**
 jobs:
   push:
-    name: "installers:${{ matrix.installer }}"
+    name: "installers:${{ matrix.installer.name }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         installer:
-          - steamcmd
+          - {name: "steamcmd", platform: "linux/amd64"}
     steps:
       - name: code checkout
         uses: actions/checkout@v2
@@ -40,9 +40,9 @@ jobs:
       - name: build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./installers/${{ matrix.installer }}
-          file: ./installers/${{ matrix.installer }}/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          context: ./installers/${{ matrix.installer.name }}
+          file: ./installers/${{ matrix.installer.name }}/Dockerfile
+          platforms: ${{ matrix.installer.platform }}
           push: true
           tags: |
-            ghcr.io/hexiahost/installers:${{ matrix.installer }}
+            ghcr.io/hexiahost/installers:${{ matrix.installer.name }}
