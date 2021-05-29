@@ -7,6 +7,7 @@ LABEL org.opencontainers.image.licenses=MIT
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# create and set the work directory first or it will not work.
 RUN mkdir -p /root/steamcmd
 WORKDIR /root/steamcmd
 

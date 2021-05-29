@@ -21,6 +21,9 @@ jobs:
       - name: code checkout
         uses: actions/checkout@v2
 
+      - name: setup QEMU
+        uses: docker/setup-qemu-action@v1
+
       - name: setup buildx
         uses: docker/setup-buildx-action@v1
         with:
@@ -39,7 +42,7 @@ jobs:
         with:
           context: ./installers/${{ matrix.installer }}
           file: ./installers/${{ matrix.installer }}/Dockerfile
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             ghcr.io/hexiahost/installers:${{ matrix.installer }}

@@ -5,6 +5,7 @@ sleep 1
 # Make internal Docker IP address available to processes.
 export INTERNAL_IP=`ip route get 1 | awk '{print $NF;exit}'`
 
+# Prune logs older than 7 days on startup if enabled.
 if [ "${LOG_AUTOPRUNE}" = 1 ]; then
     if [ -d "$LOG_DIR" ]; then
         echo "AutoPruning logs older than 7 days..."
