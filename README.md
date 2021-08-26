@@ -12,4 +12,4 @@ or type of game ex. source engine games.
 * `installers` - these images are used to install different Eggs within Pterodactyl, they're not used for running any servers in Pterodactyl.
 
 ## Architecture
-All of these images are available for `linux/amd64`. Most of the images are available for `linux/arm64` unless the application is only made for intel/amd architecture CPUs, like images that require steamcmd.
+Most of the images are available for `linux/arm64` unless the application is only made for intel/amd architecture CPUs, like images that require steamcmd.
