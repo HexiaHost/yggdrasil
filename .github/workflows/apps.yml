@@ -47,4 +47,4 @@ jobs:
           platforms: ${{ matrix.app.platform }}
           push: true
           tags: |
-            ghcr.io/hexiahost/apps:${{ matrix.app }}
+            ghcr.io/hexiahost/apps:${{ matrix.app.name }}
