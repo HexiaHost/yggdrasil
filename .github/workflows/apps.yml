@@ -16,9 +16,9 @@ jobs:
       fail-fast: false
       matrix:
         app:
-          - opus
-          - generic
-          - netcore3.1
+          - {name: "opus", platform: "linux/amd64,linux/arm64"}
+          - {name: "generic", platform: "linux/amd64,linux/arm64"}
+          - {name: "netsdk", platform: "linux/amd64"}
     steps:
       - name: code checkout
         uses: actions/checkout@v2
@@ -42,9 +42,9 @@ jobs:
       - name: build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./apps/${{ matrix.app }}
-          file: ./apps/${{ matrix.app }}/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          context: ./apps/${{ matrix.app.name }}
+          file: ./apps/${{ matrix.app.name }}/Dockerfile
+          platforms: ${{ matrix.app.platform }}
           push: true
           tags: |
             ghcr.io/hexiahost/apps:${{ matrix.app }}
