@@ -5,7 +5,7 @@ LABEL author="HexiaHost LLC." maintainer="support@hexiahost.net"
 LABEL org.opencontainers.image.source="https://github.com/HexiaHost/yggdrasil"
 LABEL org.opencontainers.image.licenses=MIT
 
-ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -y \
     && apt-get install -y iproute2 curl libgl1-mesa-glx libluajit-5.1-2 libssl1.1 \

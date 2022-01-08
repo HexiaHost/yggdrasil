@@ -5,7 +5,7 @@ LABEL author="HexiaHost LLC." maintainer="support@hexiahost.net"
 LABEL org.opencontainers.image.source="https://github.com/HexiaHost/yggdrasil"
 LABEL org.opencontainers.image.licenses=MIT
 
-ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN dpkg --add-architecture i386 \
     && apt update \
