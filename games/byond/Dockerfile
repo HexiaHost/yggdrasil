@@ -9,7 +9,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends iproute2 curl ca-certificates libssl-dev pkg-config gcc-multilib mariadb-client libssl1.0.0 \
-    && useradd -d /home/container -m container
+    && useradd -d /home/container -m container \
+    && rm -rf /var/lib/apt/lists/*
 
 USER container
 ENV HOME /home/container
