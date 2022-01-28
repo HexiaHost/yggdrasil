@@ -20,6 +20,7 @@ jobs:
           - {name: "valheimplus", platform: "linux/amd64"}
           - {name: "byond", platform: "linux/amd64"}
           - {name: "starbound", platform: "linux/amd64"}
+          - {name: "source", platform: "linux/amd64"}
     steps:
       - name: code checkout
         uses: actions/checkout@v2
