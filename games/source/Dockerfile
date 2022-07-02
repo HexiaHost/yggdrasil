@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM debian:bullseye-slim
+FROM debian:bullseye
 
 LABEL author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
@@ -35,8 +35,6 @@ RUN dpkg --add-architecture i386 \
 		&& export LD_LIBRARY_PATH="/usr/local/lib64/:$LD_LIBRARY_PATH" \
 		&& useradd -m -d /home/container container \
     && rm -rf /var/lib/apt/lists/*
-		
-RUN strings/usr/lib64/libstdc++.so.6 | grep CXXABI
 
 USER container
 ENV USER=container HOME=/home/container
