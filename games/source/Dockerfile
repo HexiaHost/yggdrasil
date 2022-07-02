@@ -33,7 +33,6 @@ RUN dpkg --add-architecture i386 \
 		&& add-apt-repository ppa:ubuntu-toolchain-r/test
 		&& apt update \
 		&& apt install -y tar curl gcc g++ lib32gcc-s1 libstdc++6 libgcc1 libcurl4-gnutls-dev:i386 libssl1.1:i386 libcurl4:i386 lib32tinfo6 libtinfo6:i386 lib32z1 lib32stdc++6 libncurses5:i386 libcurl3-gnutls:i386 libsdl2-2.0-0:i386 iproute2 gdb libsdl1.2debian libfontconfig1 telnet net-tools netcat tzdata libgl1-mesa-dri:i386 libgl1-mesa-glx:i386 gcc-4.9 g++-4.9 \
-		&& update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9 \
 		&& useradd -m -d /home/container container \
     && rm -rf /var/lib/apt/lists/*
 
