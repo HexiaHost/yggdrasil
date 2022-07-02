@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM debian:stable-slim
+FROM debian:buster-slim
 
 LABEL author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
