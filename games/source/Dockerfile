@@ -36,6 +36,8 @@ RUN dpkg --add-architecture i386 \
 		&& useradd -m -d /home/container container \
     && rm -rf /var/lib/apt/lists/*
 
+RUN strings/usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep CXXABI
+
 USER container
 ENV USER=container HOME=/home/container
 WORKDIR /home/container
