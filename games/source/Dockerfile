@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM debian:bookworm-slim
+FROM ubuntu:18.04
 
 LABEL author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
