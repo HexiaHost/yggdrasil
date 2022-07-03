@@ -31,7 +31,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN dpkg --add-architecture i386 \
 		&& apt update \
-		&& apt install -y tar curl gcc g++ libc6 libc-bin lib32gcc-s1 libgcc1 libcurl4-gnutls-dev:i386 libssl1.1:i386 libcurl4:i386 lib32tinfo6 libtinfo6:i386 lib32z1 lib32stdc++6 libncurses5:i386 libcurl3-gnutls:i386 libsdl2-2.0-0:i386 iproute2 gdb libsdl1.2debian libfontconfig1 telnet net-tools tzdata libgl1-mesa-dri:i386 libgl1-mesa-glx:i386 \
+		&& apt install -y tar curl gcc g++ libstdc++6 lib32gcc-s1 libgcc1 libcurl4-gnutls-dev:i386 libssl1.1:i386 libcurl4:i386 lib32tinfo6 libtinfo6:i386 lib32z1 lib32stdc++6 libncurses5:i386 libcurl3-gnutls:i386 libsdl2-2.0-0:i386 iproute2 gdb libsdl1.2debian libfontconfig1 telnet net-tools tzdata libgl1-mesa-dri:i386 libgl1-mesa-glx:i386 \
 		&& useradd -m -d /home/container container \
     && rm -rf /var/lib/apt/lists/*
 
