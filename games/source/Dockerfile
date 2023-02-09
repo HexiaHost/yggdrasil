@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM debian:buster-slim
+FROM debian:bookworm-slim
 
 LABEL author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
@@ -34,7 +34,7 @@ RUN dpkg --add-architecture i386 \
 	#&& echo 'deb http://dk.archive.ubuntu.com/ubuntu/ xenial main' | tee --append /etc/apt/sources.list \
 	#&& echo 'deb http://dk.archive.ubuntu.com/ubuntu/ xenial universe' | tee --append /etc/apt/sources.list \
 	#&& apt install -y tar curl gcc g++ libstdc++6 libgcc1 libcurl4-gnutls-dev:i386 libssl1.1:i386 libcurl4:i386 lib32z1 lib32stdc++6 libncurses5:i386 libcurl3-gnutls:i386 libsdl2-2.0-0:i386 iproute2 gdb libsdl1.2debian libfontconfig1 telnet net-tools tzdata libgl1-mesa-dri:i386 libgl1-mesa-glx:i386 \
-	&& apt install -y ca-certificates tar curl libcurl4-gnutls-dev:i386 lib32gcc1=1:8.3.0-6 unzip xz-utils zip=3.0-11+b1 \
+	&& apt install -y ca-certificates tar curl libcurl4-gnutls-dev:i386 libcurl4:i386 lib32gcc1=1:8.3.0-6 unzip xz-utils zip \
 	&& useradd -m -d /home/container container \
 	&& rm -rf /var/lib/apt/lists/*
 
