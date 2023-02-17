@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.licenses=MIT
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -y \
-    && apt-get install -y iproute2 curl ca-certificates openssl git \
+    && apt-get install -y iproute2 tzdata curl ca-certificates openssl git \
     && useradd -d /home/container -m container \
     && rm -rf /var/lib/apt/lists/*
 
