@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM debian:bookworm-slim
+FROM debian:stable-slim
 
 LABEL author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
