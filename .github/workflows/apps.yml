@@ -16,6 +16,7 @@ jobs:
         app:
           - {name: "opus", platform: "linux/amd64,linux/arm64"}
           - {name: "generic", platform: "linux/amd64,linux/arm64"}
+          - {name: "generic_prune", platform: "linux/amd64,linux/arm64"}
           - {name: "netsdk", platform: "linux/amd64"}
     steps:
       - name: code checkout
