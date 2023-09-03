@@ -18,6 +18,7 @@ jobs:
           - {name: "generic", platform: "linux/amd64,linux/arm64"}
           - {name: "generic_prune", platform: "linux/amd64,linux/arm64"}
           - {name: "netsdk", platform: "linux/amd64"}
+          - {name: "jre17", platform: "linux/amd64,linux/arm64"}
     steps:
       - name: code checkout
         uses: actions/checkout@v2
