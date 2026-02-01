@@ -15,8 +15,6 @@ jobs:
       matrix:
         game:
           - {name: "tes3mp", platform: "linux/amd64,linux/arm64"}
-          - {name: "byond", platform: "linux/amd64"}
-          - {name: "starbound", platform: "linux/amd64"}
           - {name: "source", platform: "linux/amd64"}
           - {name: "tf2c", platform: "linux/amd64"}
     steps:
