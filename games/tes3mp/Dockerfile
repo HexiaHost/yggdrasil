@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM debian:bookworm-slim
 
 LABEL author="HexiaHost LLC." maintainer="support@hexiahost.net"
 
