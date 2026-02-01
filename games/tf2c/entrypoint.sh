@@ -55,9 +55,9 @@ fi
 ## if auto_update is not set or to 1 update
 if [ -z ${AUTO_UPDATE} ] || [ "${AUTO_UPDATE}" == "1" ]; then
     # Update Source Server
-    ./steamcmd.sh +force_install_dir /mnt/server +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +app_update 232250 validate +quit
+    ./steamcmd/steamcmd.sh +force_install_dir /mnt/server +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +app_update 232250 validate +quit
     sleep 5
-    ./steamcmd.sh +force_install_dir /mnt/server/classified +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +app_update 3557020 validate +quit
+    ./steamcmd/steamcmd.sh +force_install_dir /mnt/server/classified +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +app_update 3557020 validate +quit
 
 else
     echo -e "Not updating game server as auto update was set to 0. Starting Server"
