@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.4
-FROM        --platform=$TARGETOS/$TARGETARCH ubuntu:24.04
+FROM        --platform=$TARGETOS/$TARGETARCH ubuntu:focal
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
