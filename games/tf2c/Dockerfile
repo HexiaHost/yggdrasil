@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.4
-FROM        --platform=$TARGETOS/$TARGETARCH ubuntu:22.04
+FROM        --platform=$TARGETOS/$TARGETARCH ubuntu:24.04
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
@@ -50,7 +50,8 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     tini \
     tzdata \
     xvfb \
-    libsdl1.2debian
+    libsdl1.2debian \
+    libncurses5
 
 # 32-bit packages
 RUN	--mount=type=cache,target=/var/cache/apt \
@@ -68,9 +69,12 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     libz1:i386 \
     lib32stdc++6 \
     lib32tinfo6 \
-    lib32z1 \
-    libncurses5:i386
+    lib32z1
+    #libncurses5:i386
     #libtinfo5:i386
+
+RUN sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.5 /usr/lib/libtinfo.so.5 \
+    sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.5 /usr/lib/libncurses.so.5
 
 ## install rcon
 RUN --mount=type=tmpfs,target=/tmp         cd /tmp/ \
