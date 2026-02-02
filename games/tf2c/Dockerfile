@@ -13,9 +13,7 @@ ENV         DEBIAN_FRONTEND=noninteractive
 # Setup apt
 RUN	--mount=type=cache,target=/var/cache/apt \
 	--mount=type=cache,target=/var/lib/apt \
-        apt install software-properties-common \
 		dpkg --add-architecture i386 && \
-        add-apt-repository universe \
 		apt update && apt upgrade -y
 
 # 64-bit packages
@@ -72,7 +70,7 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     lib32stdc++6 \
     lib32tinfo6 \
     lib32z1 \
-    libncurses5:i386
+    libncurses6:i386
     #libtinfo5:i386
 
 # RUN ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.5 /usr/lib/libtinfo.so.5 \
