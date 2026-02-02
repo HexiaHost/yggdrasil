@@ -69,7 +69,7 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     lib32stdc++6 \
     lib32tinfo6 \
     lib32z1 \
-    libncurses5:i386
+    lib32ncurses-dev
     #libtinfo5:i386
 
 ## install rcon
