@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.4
-FROM        --platform=$TARGETOS/$TARGETARCH debian:trixie-backports
+FROM        --platform=$TARGETOS/$TARGETARCH ubuntu:24.04
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
@@ -69,8 +69,7 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     libz1:i386 \
     lib32stdc++6 \
     lib32tinfo6 \
-    lib32z1 \
-    libncurses5:i386
+    lib32z1
     #libtinfo5:i386
 
 # RUN ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.5 /usr/lib/libtinfo.so.5 \
