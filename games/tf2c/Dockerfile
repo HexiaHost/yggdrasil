@@ -8,12 +8,13 @@ LABEL       org.opencontainers.image.licenses=MIT
 
 ENV         DEBIAN_FRONTEND=noninteractive
 
-RUN echo "deb http://security.ubuntu.com/ubuntu focal-security main universe" >> /etc/apt/sources.list
+#RUN echo "deb http://security.ubuntu.com/ubuntu focal-security main universe" >> /etc/apt/sources.list
 
 # Setup apt
 RUN	--mount=type=cache,target=/var/cache/apt \
 	--mount=type=cache,target=/var/lib/apt \
 		dpkg --add-architecture i386 && \
+        add-apt-repository universe \
 		apt update && apt upgrade -y
 
 # 64-bit packages
@@ -31,7 +32,7 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     lib32stdc++6 \
     lib32tinfo6 \
     lib32z1 \
-    #libcurl4 \
+    libcurl4 \
     libfontconfig1 \
     libncursesw6 \
     libnss-wrapper \
@@ -58,8 +59,8 @@ RUN	--mount=type=cache,target=/var/cache/apt \
 	--mount=type=cache,target=/var/lib/apt \
 	apt -y install \
     libcurl3-gnutls:i386 \
-    #libcurl4:i386 \
-    #libcurl4-gnutls-dev:i386 \
+    libcurl4:i386 \
+    libcurl4-gnutls-dev:i386 \
     libncurses6:i386 \
     libsdl2-2.0-0:i386 \
     libssl-dev:i386 \
@@ -73,8 +74,8 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     libncurses5:i386
     #libtinfo5:i386
 
-# RUN sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.5 /usr/lib/libtinfo.so.5 \
-#     sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.5 /usr/lib/libncurses.so.5
+# RUN ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.5 /usr/lib/libtinfo.so.5 \
+#     ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.5 /usr/lib/libncurses.so.5
 
 ## install rcon
 RUN --mount=type=tmpfs,target=/tmp         cd /tmp/ \
