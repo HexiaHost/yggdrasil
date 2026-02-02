@@ -31,7 +31,7 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     lib32stdc++6 \
     lib32tinfo6 \
     lib32z1 \
-    libcurl4 \
+    #libcurl4 \
     libfontconfig1 \
     libncursesw6 \
     libnss-wrapper \
@@ -39,7 +39,6 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     libssl3 \
     libstdc++6 \
     libtbb12 \
-    libtinfo6 \
     libtinfo6 \
     libc++-dev \
     libc6 \
@@ -59,8 +58,8 @@ RUN	--mount=type=cache,target=/var/cache/apt \
 	--mount=type=cache,target=/var/lib/apt \
 	apt -y install \
     libcurl3-gnutls:i386 \
-    libcurl4:i386 \
-    libcurl4-gnutls-dev:i386 \
+    #libcurl4:i386 \
+    #libcurl4-gnutls-dev:i386 \
     libncurses6:i386 \
     libsdl2-2.0-0:i386 \
     libssl-dev:i386 \
