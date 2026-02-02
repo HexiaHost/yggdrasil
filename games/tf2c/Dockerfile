@@ -60,7 +60,6 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     libncurses6:i386 \
     libsdl2-2.0-0:i386 \
     libssl-dev:i386 \
-    libssl3:i386 \
     libstdc++6:i386 \
     libtinfo6:i386 \
     libz1:i386 \
