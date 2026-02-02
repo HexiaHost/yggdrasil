@@ -13,6 +13,7 @@ ENV         DEBIAN_FRONTEND=noninteractive
 # Setup apt
 RUN	--mount=type=cache,target=/var/cache/apt \
 	--mount=type=cache,target=/var/lib/apt \
+        apt install software-properties-common \
 		dpkg --add-architecture i386 && \
         add-apt-repository universe \
 		apt update && apt upgrade -y
