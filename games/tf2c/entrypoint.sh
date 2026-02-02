@@ -22,7 +22,7 @@
 # SOFTWARE.
 #
 
-# Give everything time to initialize for preventing SteamCMD deadlock
+# Wait for the container to fully initialize
 sleep 1
 
 # Default the TZ environment variable to UTC.
@@ -33,38 +33,43 @@ export TZ
 INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
 export INTERNAL_IP
 
+# Set environment for Steam Proton
+if [ -f "/usr/local/bin/proton" ]; then
+	if [ -n "${SRCDS_APPID}" ]; then
+		mkdir -p "/home/container/.steam/steam/steamapps/compatdata/${SRCDS_APPID}"
+		export STEAM_COMPAT_CLIENT_INSTALL_PATH="/home/container/.steam/steam"
+		export STEAM_COMPAT_DATA_PATH="/home/container/.steam/steam/steamapps/compatdata/${SRCDS_APPID}"
+		# Fix for pipx with protontricks
+		export PATH=$PATH:/root/.local/bin
+	else
+		echo -e "----------------------------------------------------------------------------------"
+		echo -e "WARNING!!! SRCDS_APPID is missing and must be set when using Proton"
+		echo -e "Server will now terminate"
+		echo -e "----------------------------------------------------------------------------------"
+		exit 1
+	fi
+fi
+
 # Switch to the container's working directory
 cd /home/container || exit 1
 
-# Convert all of the "{{VARIABLE}}" parts of the command into the expected shell
-# variable format of "${VARIABLE}" before evaluating the string and automatically
-# replacing the values.
-PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g' | eval echo "$(cat -)")
-
-## just in case someone removed the defaults.
-if [ "${STEAM_USER}" == "" ]; then
-    echo -e "steam user is not set.\n"
-    echo -e "Using anonymous user.\n"
-    STEAM_USER=anonymous
-    STEAM_PASS=""
-    STEAM_AUTH=""
-else
-    echo -e "user set to ${STEAM_USER}"
+# Set default values for steam if not provided
+STEAM_USER=${STEAM_USER:-anonymous}
+if [ "${STEAM_USER}" == "anonymous" ]; then
+	STEAM_PASS=""
+	STEAM_AUTH=""
 fi
 
-## if auto_update is not set or to 1 update
-if [ -z ${AUTO_UPDATE} ] || [ "${AUTO_UPDATE}" == "1" ]; then
-    # Update Source Server
-    ./steamcmd/steamcmd.sh +force_install_dir /home/container +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +app_update 232250 validate +quit
+## If AUTO_UPDATE is not set or is set to 1, run steamcmd to update the server
+if [ -z "${AUTO_UPDATE}" ] || [ "${AUTO_UPDATE}" == "1" ]; then
+    ./steamcmd/steamcmd.sh +force_install_dir /home/container +login "${STEAM_USER}" "${STEAM_PASS}" "${STEAM_AUTH}" +app_update 232250 $([[ "${VALIDATE}" == "1" ]] && printf %s 'validate') +quit
     sleep 5
-    ./steamcmd/steamcmd.sh +force_install_dir /home/container/classified +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +app_update 3557020 validate +quit
-
-else
-    echo -e "Not updating game server as auto update was set to 0. Starting Server"
+    ./steamcmd/steamcmd.sh +force_install_dir /home/container +login "${STEAM_USER}" "${STEAM_PASS}" "${STEAM_AUTH}" +app_update 3557020 $([[ "${VALIDATE}" == "1" ]] && printf %s 'validate') +quit
 fi
 
-# Display the command we're running in the output, and then execute it with the env
-# from the container itself.
-printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0m%s\n" "$PARSED"
-# shellcheck disable=SC2086
-exec env ${PARSED}
+# Replace Startup Variables
+MODIFIED_STARTUP=$(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')
+echo -e ":/home/container$ ${MODIFIED_STARTUP}"
+
+# Run the Server
+eval ${MODIFIED_STARTUP}
