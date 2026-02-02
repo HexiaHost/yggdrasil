@@ -73,8 +73,8 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     libncurses5:i386
     #libtinfo5:i386
 
-RUN sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.5 /usr/lib/libtinfo.so.5 \
-    sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.5 /usr/lib/libncurses.so.5
+# RUN sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.5 /usr/lib/libtinfo.so.5 \
+#     sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so.5 /usr/lib/libncurses.so.5
 
 ## install rcon
 RUN --mount=type=tmpfs,target=/tmp         cd /tmp/ \
