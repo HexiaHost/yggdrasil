@@ -8,6 +8,8 @@ LABEL       org.opencontainers.image.licenses=MIT
 
 ENV         DEBIAN_FRONTEND=noninteractive
 
+RUN echo "deb http://security.ubuntu.com/ubuntu focal-security main universe" >> /etc/apt/sources.list
+
 # Setup apt
 RUN	--mount=type=cache,target=/var/cache/apt \
 	--mount=type=cache,target=/var/lib/apt \
@@ -50,8 +52,7 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     tini \
     tzdata \
     xvfb \
-    libsdl1.2debian \
-    libncurses5
+    libsdl1.2debian
 
 # 32-bit packages
 RUN	--mount=type=cache,target=/var/cache/apt \
@@ -69,8 +70,8 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     libz1:i386 \
     lib32stdc++6 \
     lib32tinfo6 \
-    lib32z1
-    #libncurses5:i386
+    lib32z1 \
+    libncurses5:i386
     #libtinfo5:i386
 
 RUN sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.5 /usr/lib/libtinfo.so.5 \
