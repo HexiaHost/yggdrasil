@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.4
-FROM        --platform=$TARGETOS/$TARGETARCH ubuntu:24.04
+FROM        --platform=$TARGETOS/$TARGETARCH ubuntu:focal
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
@@ -7,8 +7,6 @@ LABEL       org.opencontainers.image.source="https://github.com/Ptero-Eggs/yolks
 LABEL       org.opencontainers.image.licenses=MIT
 
 ENV         DEBIAN_FRONTEND=noninteractive
-
-RUN echo "deb http://security.ubuntu.com/ubuntu focal-security main universe" >> /etc/apt/sources.list
 
 # Setup apt
 RUN	--mount=type=cache,target=/var/cache/apt \
@@ -36,9 +34,7 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     libncursesw6 \
     libnss-wrapper \
     libssl-dev \
-    libssl3 \
     libstdc++6 \
-    libtbb12 \
     libtinfo6 \
     libtinfo6 \
     libc++-dev \
