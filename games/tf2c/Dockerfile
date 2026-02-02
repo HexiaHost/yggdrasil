@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.4
-FROM        --platform=$TARGETOS/$TARGETARCH ubuntu:focal
+FROM        --platform=$TARGETOS/$TARGETARCH ubuntu:24.04
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
@@ -69,8 +69,8 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     lib32stdc++6 \
     lib32tinfo6 \
     lib32z1 \
-    libtinfo5:i386 \
     libncurses5:i386
+    #libtinfo5:i386
 
 ## install rcon
 RUN --mount=type=tmpfs,target=/tmp         cd /tmp/ \
