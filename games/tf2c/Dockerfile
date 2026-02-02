@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.4
-FROM        --platform=$TARGETOS/$TARGETARCH debian:bookworm
+FROM        --platform=$TARGETOS/$TARGETARCH debian:trixie-backports
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
