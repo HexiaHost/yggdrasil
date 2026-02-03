@@ -61,7 +61,7 @@ if [ "${STEAM_USER}" == "anonymous" ]; then
 fi
 
 ## If AUTO_UPDATE is not set or is set to 1, run steamcmd to update the server
-if [ -z "${AUTO_UPDATE}" ] || [ "${AUTO_UPDATE}" == "1" ]; then
+if [ "${AUTO_UPDATE}" == "1" ]; then
     ./steamcmd/steamcmd.sh +force_install_dir /home/container +login "${STEAM_USER}" "${STEAM_PASS}" "${STEAM_AUTH}" +app_update 232250 $([[ "${VALIDATE}" == "1" ]] && printf %s 'validate') +quit
     sleep 5
     ./steamcmd/steamcmd.sh +force_install_dir /home/container +login "${STEAM_USER}" "${STEAM_PASS}" "${STEAM_AUTH}" +app_update 3557020 $([[ "${VALIDATE}" == "1" ]] && printf %s 'validate') +quit
