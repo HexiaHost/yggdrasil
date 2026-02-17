@@ -1,6 +1,7 @@
 name: build apps
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -26,7 +27,6 @@ jobs:
       - name: setup buildx
         uses: docker/setup-buildx-action@v3
         with:
-          version: "v0.5.1"
           buildkitd-flags: --debug
 
       - name: login to GitHub Container Registry
