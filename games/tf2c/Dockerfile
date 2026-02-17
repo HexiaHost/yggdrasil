@@ -67,7 +67,6 @@ RUN	--mount=type=cache,target=/var/cache/apt \
     libstdc++6:i386 \
     libtinfo6:i386 \
     libz1:i386 \
-    lib32stdc++6 \
     lib32tinfo6 \
     lib32z1
     #libtinfo5:i386

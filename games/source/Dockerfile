@@ -29,12 +29,34 @@ LABEL org.opencontainers.image.licenses=MIT
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN dpkg --add-architecture i386 \
-	&& apt update \
-	#&& echo 'deb http://dk.archive.ubuntu.com/ubuntu/ xenial main' | tee --append /etc/apt/sources.list \
+# Setup apt
+RUN	--mount=type=cache,target=/var/cache/apt \
+	--mount=type=cache,target=/var/lib/apt \
+		dpkg --add-architecture i386 && \
+		apt update && apt upgrade -y
+
+#&& echo 'deb http://dk.archive.ubuntu.com/ubuntu/ xenial main' | tee --append /etc/apt/sources.list \
 	#&& echo 'deb http://dk.archive.ubuntu.com/ubuntu/ xenial universe' | tee --append /etc/apt/sources.list \
 	#&& apt install -y tar curl gcc g++ libstdc++6 libgcc1 libcurl4-gnutls-dev:i386 libssl1.1:i386 libcurl4:i386 lib32z1 lib32stdc++6 libncurses5:i386 libcurl3-gnutls:i386 libsdl2-2.0-0:i386 iproute2 gdb libsdl1.2debian libfontconfig1 telnet net-tools tzdata libgl1-mesa-dri:i386 libgl1-mesa-glx:i386 \
-	&& apt install -y curl libcurl3-gnutls:i386 libcurl4 libcurl4:i386 tzdata tar curl libcurl4-gnutls-dev:i386 libcurl4:i386 lib32gcc-s1 unzip xz-utils zip gcc g++ \
+
+RUN	--mount=type=cache,target=/var/cache/apt \
+	--mount=type=cache,target=/var/lib/apt \
+	apt -y install \
+	curl \
+	libcurl3-gnutls:i386 \
+	libcurl4 \
+	libcurl4:i386 \
+	libcurl4-gnutls-dev:i386 \
+	tzdata \
+	tar \
+	lib32gcc-s1 \
+	unzip \
+	xz-utils \
+	zip \
+	gcc \
+	g++ \
+	libstdc++6 \
+	libstdc++6:i386 \
 	&& useradd -m -d /home/container container \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -42,5 +64,9 @@ USER container
 ENV USER=container HOME=/home/container
 WORKDIR /home/container
 
-COPY ./entrypoint.sh /entrypoint.sh
-CMD [ "/bin/bash", "/entrypoint.sh" ]
+STOPSIGNAL SIGINT
+
+COPY --chmod=755 --chown=root:root ../entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/usr/bin/tini", "-g", "--"]
+CMD ["/entrypoint.sh"]
