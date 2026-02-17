@@ -66,6 +66,5 @@ WORKDIR /home/container
 
 STOPSIGNAL SIGINT
 
-ENTRYPOINT ["/usr/bin/tini", "-g", "--"]
 COPY ./entrypoint.sh /entrypoint.sh
 CMD ["/bin/bash", "/entrypoint.sh"]
