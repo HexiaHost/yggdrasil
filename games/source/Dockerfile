@@ -42,6 +42,9 @@ RUN	--mount=type=cache,target=/var/cache/apt \
 RUN	--mount=type=cache,target=/var/cache/apt \
 	--mount=type=cache,target=/var/lib/apt \
 	apt -y install \
+	gcc \
+	gdb \
+	g++ \
 	curl \
 	libcurl3-gnutls:i386 \
 	libcurl4 \
@@ -53,10 +56,27 @@ RUN	--mount=type=cache,target=/var/cache/apt \
 	unzip \
 	xz-utils \
 	zip \
-	gcc \
-	g++ \
 	libstdc++6 \
 	libstdc++6:i386 \
+    lib32stdc++6 \
+    lib32tinfo6 \
+    lib32z1 \
+    libfontconfig1 \
+    libncursesw6 \
+    libnss-wrapper \
+    libssl-dev \
+    libssl3 \
+    libtbb12 \
+    libtinfo6 \
+    libc++-dev \
+    libc6 \
+    libc6-i386 \
+	libncurses6:i386 \
+    libsdl2-2.0-0:i386 \
+    libssl-dev:i386 \
+    libssl3:i386 \
+    libtinfo6:i386 \
+    libz1:i386 \
 	&& useradd -m -d /home/container container \
 	&& rm -rf /var/lib/apt/lists/*
 
