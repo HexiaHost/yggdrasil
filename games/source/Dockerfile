@@ -20,71 +20,35 @@
 # SOFTWARE.
 #
 
-FROM --platform=$TARGETOS/$TARGETARCH ubuntu:24.04
+FROM        --platform=$TARGETOS/$TARGETARCH debian:bookworm-slim
 
-LABEL author="Matthew Penner" maintainer="matthew@pterodactyl.io"
+LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
-LABEL org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
-LABEL org.opencontainers.image.licenses=MIT
+LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
+LABEL       org.opencontainers.image.licenses=MIT
 
-ENV DEBIAN_FRONTEND=noninteractive
+ENV         DEBIAN_FRONTEND=noninteractive
 
-# Setup apt
-RUN	--mount=type=cache,target=/var/cache/apt \
-	--mount=type=cache,target=/var/lib/apt \
-		dpkg --add-architecture i386 && \
-		apt update && apt upgrade -y
+RUN         dpkg --add-architecture i386 \
+            && apt update \
+            && apt upgrade -y \
+            && apt install -y tar curl gcc g++ lib32gcc-s1 libgcc-11-dev libgcc-12-dev libcurl4-gnutls-dev:i386 libssl-dev:i386 libcurl4:i386 lib32tinfo6 libtinfo6:i386 lib32z1 lib32stdc++6 libncurses5:i386 libcurl3-gnutls:i386 libsdl2-2.0-0:i386 iproute2 gdb libsdl1.2debian libfontconfig1 telnet net-tools netcat-traditional tzdata numactl wget tini \
+            && useradd -m -d /home/container container
 
-#&& echo 'deb http://dk.archive.ubuntu.com/ubuntu/ xenial main' | tee --append /etc/apt/sources.list \
-	#&& echo 'deb http://dk.archive.ubuntu.com/ubuntu/ xenial universe' | tee --append /etc/apt/sources.list \
-	#&& apt install -y tar curl gcc g++ libstdc++6 libgcc1 libcurl4-gnutls-dev:i386 libssl1.1:i386 libcurl4:i386 lib32z1 lib32stdc++6 libncurses5:i386 libcurl3-gnutls:i386 libsdl2-2.0-0:i386 iproute2 gdb libsdl1.2debian libfontconfig1 telnet net-tools tzdata libgl1-mesa-dri:i386 libgl1-mesa-glx:i386 \
-
-RUN	--mount=type=cache,target=/var/cache/apt \
-	--mount=type=cache,target=/var/lib/apt \
-	apt -y install \
-	gcc \
-	gdb \
-	g++ \
-	curl \
-	libcurl3-gnutls:i386 \
-	libcurl4 \
-	libcurl4:i386 \
-	libcurl4-gnutls-dev:i386 \
-	tzdata \
-	tar \
-	lib32gcc-s1 \
-	unzip \
-	xz-utils \
-	zip \
-	libstdc++6 \
-	libstdc++6:i386 \
-    lib32stdc++6 \
-    lib32tinfo6 \
-    lib32z1 \
-    libfontconfig1 \
-    libncursesw6 \
-    libnss-wrapper \
-    libssl-dev \
-    libssl3 \
-    libtbb12 \
-    libtinfo6 \
-    libc++-dev \
-    libc6 \
-    libc6-i386 \
-	libncurses6:i386 \
-    libsdl2-2.0-0:i386 \
-    libssl-dev:i386 \
-    libssl3:i386 \
-    libtinfo6:i386 \
-    libz1:i386 \
-	&& useradd -m -d /home/container container \
-	&& rm -rf /var/lib/apt/lists/*
-
-USER container
-ENV USER=container HOME=/home/container
-WORKDIR /home/container
+        # Temp fix for things that still need libssl1.1
+RUN     if [ "$(uname -m)" = "x86_64" ]; then \
+            wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.0g-2ubuntu4_amd64.deb && \
+            dpkg -i libssl1.1_1.1.0g-2ubuntu4_amd64.deb && \
+            rm libssl1.1_1.1.0g-2ubuntu4_amd64.deb; \
+        fi
+        
+USER        container
+ENV         USER=container HOME=/home/container
+WORKDIR     /home/container
 
 STOPSIGNAL SIGINT
 
-COPY ./entrypoint.sh /entrypoint.sh
-CMD ["/bin/bash", "/entrypoint.sh"]
+COPY        --chown=container:container ./entrypoint.sh /entrypoint.sh
+RUN         chmod +x /entrypoint.sh
+ENTRYPOINT    ["/usr/bin/tini", "-g", "--"]
+CMD         ["/entrypoint.sh"]

@@ -1,0 +1,90 @@
+#
+# Copyright (c) 2021 Matthew Penner
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+
+FROM --platform=$TARGETOS/$TARGETARCH ubuntu:24.04
+
+LABEL author="Matthew Penner" maintainer="matthew@pterodactyl.io"
+
+LABEL org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
+LABEL org.opencontainers.image.licenses=MIT
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Setup apt
+RUN	--mount=type=cache,target=/var/cache/apt \
+	--mount=type=cache,target=/var/lib/apt \
+		dpkg --add-architecture i386 && \
+		apt update && apt upgrade -y
+
+#&& echo 'deb http://dk.archive.ubuntu.com/ubuntu/ xenial main' | tee --append /etc/apt/sources.list \
+	#&& echo 'deb http://dk.archive.ubuntu.com/ubuntu/ xenial universe' | tee --append /etc/apt/sources.list \
+	#&& apt install -y tar curl gcc g++ libstdc++6 libgcc1 libcurl4-gnutls-dev:i386 libssl1.1:i386 libcurl4:i386 lib32z1 lib32stdc++6 libncurses5:i386 libcurl3-gnutls:i386 libsdl2-2.0-0:i386 iproute2 gdb libsdl1.2debian libfontconfig1 telnet net-tools tzdata libgl1-mesa-dri:i386 libgl1-mesa-glx:i386 \
+
+RUN	--mount=type=cache,target=/var/cache/apt \
+	--mount=type=cache,target=/var/lib/apt \
+	apt -y install \
+	gcc \
+	gdb \
+	g++ \
+	curl \
+	libcurl3-gnutls:i386 \
+	libcurl4 \
+	libcurl4:i386 \
+	libcurl4-gnutls-dev:i386 \
+	tzdata \
+	tar \
+	lib32gcc-s1 \
+	unzip \
+	xz-utils \
+	zip \
+	libstdc++6 \
+	libstdc++6:i386 \
+    lib32stdc++6 \
+    lib32tinfo6 \
+    lib32z1 \
+    libfontconfig1 \
+    libncursesw6 \
+    libnss-wrapper \
+    libssl-dev \
+    libssl3 \
+    libtbb12 \
+    libtinfo6 \
+    libc++-dev \
+    libc6 \
+    libc6-i386 \
+	libncurses6:i386 \
+    libsdl2-2.0-0:i386 \
+    libssl-dev:i386 \
+    libssl3:i386 \
+    libtinfo6:i386 \
+    libz1:i386 \
+	&& useradd -m -d /home/container container \
+	&& rm -rf /var/lib/apt/lists/*
+
+USER container
+ENV USER=container HOME=/home/container
+WORKDIR /home/container
+
+STOPSIGNAL SIGINT
+
+COPY ./entrypoint.sh /entrypoint.sh
+CMD ["/bin/bash", "/entrypoint.sh"]
