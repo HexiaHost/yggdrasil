@@ -33,6 +33,8 @@ export TZ
 INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
 export INTERNAL_IP
 
+export LD_LIBRARY_PATH=/home/container/.steam/sdk32:$LD_LIBRARY_PATH
+
 # Switch to the container's working directory
 cd /home/container || exit 1
 
