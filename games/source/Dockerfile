@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM        --platform=$TARGETOS/$TARGETARCH debian:bookworm-slim
+FROM        --platform=$TARGETOS/$TARGETARCH ubuntu:24.04
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
